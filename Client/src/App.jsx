@@ -1,12 +1,15 @@
-import './App.css'
-
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
 function App() {
-
-  return (
-    <div className='bg-amber-400'>
-      helli
-    </div>
-  )
+    return (
+        <>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                {/* <Route path="/home" element={<Home />} /> */}
+            </Routes>
+        </>
+    );
 }
 
-export default App
+export default App;
