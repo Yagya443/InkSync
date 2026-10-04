@@ -73,12 +73,12 @@ const PendingOrders = () => {
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] p-7 text-[#171717]">
-            {/* HEADER */}
+
             <div className="mb-7 flex items-center justify-between">
                 <div>
                     <h2 className="text-2xl font-semibold">Pending Orders</h2>
 
-                    <p className="mt-1 text-xs text-gray-500">
+                    <p className="text-xs text-gray-500">
                         Manage and process your pending stationery orders
                     </p>
                 </div>
@@ -88,7 +88,6 @@ const PendingOrders = () => {
                 </button>
             </div>
 
-            {/* STATS */}
             <div className="mb-5 grid grid-cols-4 gap-4">
                 <OrderStat
                     title="Pending Orders"
@@ -103,9 +102,7 @@ const PendingOrders = () => {
                 <OrderStat title="Pending Amount" value="₹234.60" />
             </div>
 
-            {/* ORDERS CONTAINER */}
             <div className="rounded-xl border border-gray-200 bg-white">
-                {/* TOP SECTION */}
                 <div className="flex items-center justify-between border-b border-gray-100 p-5">
                     <div>
                         <h3 className="text-sm font-semibold">
@@ -117,7 +114,6 @@ const PendingOrders = () => {
                         </p>
                     </div>
 
-                    {/* SEARCH */}
                     <div className="flex w-64 items-center gap-2 rounded-lg border border-gray-200 px-3 py-2">
                         <MdSearch size={17} className="text-gray-400" />
 
@@ -129,14 +125,12 @@ const PendingOrders = () => {
                     </div>
                 </div>
 
-                {/* ORDER CARDS */}
                 <div className="grid grid-cols-3 gap-4 px-6 py-3">
                     {orders.map((order) => (
                         <div
                             key={order.id}
                             className="rounded-xl border border-gray-200 bg-white p-5 transition hover:shadow-md"
                         >
-                            {/* CARD TOP */}
                             <div className="flex items-start justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 text-orange-500">
@@ -147,31 +141,24 @@ const PendingOrders = () => {
                                         <p className="text-sm font-semibold">
                                             {order.document}
                                         </p>
-
-                                        <p className="mt-1 text-[10px] text-gray-400">
+                                        <p className="text-[10px] text-gray-400">
                                             Order {order.id} • {order.date}
                                         </p>
                                     </div>
                                 </div>
-
                                 <StatusBadge status={order.status} />
                             </div>
 
-                            {/* ORDER DETAILS */}
-                            <div className="my-5 grid grid-cols-4 gap-3 border-y border-gray-100 py-4">
+                            <div className="my-5 grid  grid-cols-4 gap-3 border-y border-gray-100  py-4">
                                 <Detail label="Pages" value={order.pages} />
-
                                 <Detail label="Copies" value={order.copies} />
-
                                 <Detail label="Print" value={order.type} />
-
                                 <Detail label="Amount" value={order.amount} />
                             </div>
 
-                            {/* CARD BOTTOM */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-xs text-gray-400">
+                                    <p className="text-xs  text-gray-400">
                                         Customer
                                     </p>
 
@@ -181,17 +168,12 @@ const PendingOrders = () => {
                                 </div>
 
                                 <div className="flex items-center gap-2">
-                                    {/* MARK DONE */}
-                                    <button className="rounded-md bg-green-500 px-2 py-1 text-xs font-semibold text-white transition hover:bg-green-600">
+                                    <button className="rounded-md cursor-pointer  bg-green-500 px-2 py-1 text-xs font-semibold text-white transition hover:bg-green-600">
                                         Mark as Done
                                     </button>
-
-                                    {/* DOWNLOAD */}
                                     <button className="rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700">
                                         <MdDownload size={17} />
                                     </button>
-
-                                    {/* MORE */}
                                     <button className="rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700">
                                         <MdMoreVert size={17} />
                                     </button>
@@ -207,37 +189,28 @@ const PendingOrders = () => {
 
 export default PendingOrders;
 
-/* =========================
-   ORDER STAT
-========================= */
 
-function OrderStat({ title, value, color = "text-gray-900" }) {
+function OrderStat({ title, value }) {
     return (
-        <div className="rounded-xl border border-gray-200 bg-white p-5">
-            <p className="text-[11px] text-gray-400">{title}</p>
+        <div className="rounded-xl  border border-gray-200 bg-white p-5">
+            <p className="text-sm text-gray-400">{title}</p>
 
-            <p className={`mt-2 text-2xl font-semibold ${color}`}>{value}</p>
+            <p className={` text-2xl font-semibold `}>{value}</p>
         </div>
     );
 }
 
-/* =========================
-   DETAIL
-========================= */
 
 function Detail({ label, value }) {
     return (
         <div>
-            <p className="text-[10px] text-gray-400">{label}</p>
+            <p className="text-xs text-gray-400">{label}</p>
 
-            <p className="mt-1 text-xs font-medium text-gray-700">{value}</p>
+            <p className="text-xs font-medium  text-gray-700">{value}</p>
         </div>
     );
 }
 
-/* =========================
-   STATUS BADGE
-========================= */
 
 function StatusBadge({ status }) {
     const styles = {
@@ -246,7 +219,7 @@ function StatusBadge({ status }) {
 
     return (
         <span
-            className={`rounded-full px-2 py-1 text-[10px] ${styles[status]}`}
+            className={`rounded-md px-2 py-1 text-xs ${styles[status]}`}
         >
             {status}
         </span>

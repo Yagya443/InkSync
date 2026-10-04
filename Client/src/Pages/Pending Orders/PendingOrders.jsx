@@ -76,7 +76,7 @@ const PendingOrders = () => {
             <div className="mb-7 flex items-center justify-between">
                 <div>
                     <h2 className="text-2xl font-semibold">Pending Orders</h2>
-                    <p className="mt-1 text-xs text-gray-500">
+                    <p className="text-xs text-gray-500">
                         Manage and process your pending stationery orders
                     </p>
                 </div>
@@ -118,18 +118,19 @@ const PendingOrders = () => {
                     {orders.map((order) => (
                         <div
                             key={order.id}
-                            className="rounded-xl p-5 transition  hover:shadow-md border border-gray-200 bg-white"
+                            className="rounded-xl border border-gray-200 bg-white p-5 transition hover:shadow-md"
                         >
                             <div className="flex items-start justify-between">
-                                <div className="flex items-center  gap-3">
-                                    <div className="flex h-10 w-10 bg-orange-50 text-orange-500 items-center justify-center rounded-lg ">
+                                <div className="flex items-center gap-3">
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 text-orange-500">
                                         PDF
                                     </div>
+
                                     <div>
                                         <p className="text-sm font-semibold">
                                             {order.document}
                                         </p>
-                                        <p className="mt-1 text-sm text-gray-400">
+                                        <p className="text-[10px] text-gray-400">
                                             Order {order.id} • {order.date}
                                         </p>
                                     </div>
@@ -137,35 +138,31 @@ const PendingOrders = () => {
                                 <StatusBadge status={order.status} />
                             </div>
 
-                            <div className="grid grid-cols-4  py-4 gap-3 border-gray-100">
+                            <div className="my-5 grid  grid-cols-4 gap-3 border-y border-gray-100  py-4">
                                 <Detail label="Pages" value={order.pages} />
                                 <Detail label="Copies" value={order.copies} />
                                 <Detail label="Print" value={order.type} />
                                 <Detail label="Amount" value={order.amount} />
                             </div>
 
-                            <div className="flex items-center  justify-between">
+                            <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-xs text-gray-400">
+                                    <p className="text-xs  text-gray-400">
                                         Customer
                                     </p>
-                                    <p className="text-xs font-semibold">
+
+                                    <p className="text-xs font-medium">
                                         {order.customer}
                                     </p>
                                 </div>
 
                                 <div className="flex items-center gap-2">
-                                    {/* MARK DONE */}
-                                    <button className="rounded-md bg-green-500 px-2 py-1 text-xs font-semibold text-white transition hover:bg-green-600">
+                                    <button className="rounded-md cursor-pointer  bg-green-500 px-2 py-1 text-xs font-semibold text-white transition hover:bg-green-600">
                                         Mark as Done
                                     </button>
-
-                                    {/* DOWNLOAD */}
                                     <button className="rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700">
                                         <MdDownload size={17} />
                                     </button>
-
-                                    {/* MORE */}
                                     <button className="rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700">
                                         <MdMoreVert size={17} />
                                     </button>
@@ -206,7 +203,7 @@ function StatusBadge({ status }) {
     };
 
     return (
-        <span className={`rounded-full px-2 py-1 text-xs ${styles[status]}`}>
+        <span className={`rounded-md px-2 py-1 text-xs ${styles[status]}`}>
             {status}
         </span>
     );
