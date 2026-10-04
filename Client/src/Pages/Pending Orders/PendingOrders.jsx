@@ -1,5 +1,6 @@
 import React from "react";
 import { MdSearch, MdDownload, MdMoreVert } from "react-icons/md";
+import StatCard from "../../Components/StatCard";
 
 const PendingOrders = () => {
     const orders = [
@@ -86,10 +87,10 @@ const PendingOrders = () => {
             </div>
 
             <div className="grid grid-cols-4 mb-5 gap-4">
-                <OrderStat title="Pending Orders" value="12" />
-                <OrderStat title="Total Pages" value="486" />
-                <OrderStat title="Total Copies" value="24" />
-                <OrderStat title="Pending Amount" value="₹234.60" />
+                <StatCard title="Pending Orders" value="12" />
+                <StatCard title="Total Pages" value="486" />
+                <StatCard title="Total Copies" value="24" />
+                <StatCard title="Pending Amount" value="₹234.60" />
             </div>
 
             <div className="rounded-xl bg-white border border-gray-200 ">
@@ -177,15 +178,6 @@ const PendingOrders = () => {
 };
 
 export default PendingOrders;
-
-function OrderStat({ title, value }) {
-    return (
-        <div className="rounded-xl border border-gray-200 bg-white p-5">
-            <p className="text-sm text-gray-400">{title}</p>
-            <p className={` text-2xl font-semibold`}>{value}</p>
-        </div>
-    );
-}
 
 function Detail({ label, value }) {
     return (

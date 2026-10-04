@@ -1,6 +1,5 @@
 import React from "react";
-import Navbar from "../../Components/navbar";
-import StatCard from "./StatCard";
+import StatCard from "../../Components/StatCard";
 
 const Home = () => {
     const orders = [
@@ -79,13 +78,13 @@ const Home = () => {
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] text-[#171717]">
-            <main className="flex-1 p-7">
+            <main className=" p-7">
                 {/* HEADER */}
                 <div className="mb-7 flex items-center justify-between">
                     <div>
                         <h2 className="text-2xl font-semibold">Dashboard</h2>
 
-                        <p className="mt-1 text-xs text-gray-500">
+                        <p className="text-xs text-gray-500">
                             Overview of your stationery orders
                         </p>
                     </div>
@@ -95,7 +94,6 @@ const Home = () => {
                     </button>
                 </div>
 
-                {/* STAT CARDS */}
                 <div className="grid grid-cols-4 gap-4">
                     {stats.map((stat) => (
                         <StatCard
@@ -193,9 +191,7 @@ const Home = () => {
     );
 };
 
-/* STAT CARD */
 
-/* SERVICE */
 
 function Service({ name, value }) {
     return (

@@ -1,5 +1,6 @@
 import React from "react";
 import { MdSearch, MdMoreVert, MdDownload } from "react-icons/md";
+import StatCard from "../../Components/StatCard";
 
 const CompletedOrders = () => {
     const orders = [
@@ -77,7 +78,7 @@ const CompletedOrders = () => {
                 <div>
                     <h2 className="text-2xl font-semibold">Completed Orders</h2>
 
-                    <p className="mt-1 text-xs text-gray-500">
+                    <p className=" text-xs text-gray-500">
                         View your completed stationery orders
                     </p>
                 </div>
@@ -88,13 +89,10 @@ const CompletedOrders = () => {
             </div>
 
             <div className="mb-5 grid grid-cols-4 gap-4">
-                <OrderStat title="Completed Orders" value="116" />
-
-                <OrderStat title="Total Pages" value="4,286" />
-
-                <OrderStat title="Total Copies" value="248" />
-
-                <OrderStat title="Total Revenue" value="₹4,320" />
+                <StatCard title="Completed Orders" value="116" />
+                <StatCard title="Total Pages" value="4,286" />
+                <StatCard title="Total Copies" value="248" />
+                <StatCard title="Total Revenue" value="₹4,320" />
             </div>
 
             <div className="rounded-xl border border-gray-200 bg-white">
@@ -103,7 +101,6 @@ const CompletedOrders = () => {
                         <h3 className="text-sm font-semibold">
                             Completed Orders
                         </h3>
-
                         <p className="text-sm text-gray-400">
                             View all successfully completed print requests
                         </p>
@@ -111,7 +108,6 @@ const CompletedOrders = () => {
 
                     <div className="flex w-64 items-center gap-2 rounded-lg border border-gray-200 px-3 py-2">
                         <MdSearch size={17} className="text-gray-400" />
-
                         <input
                             type="text"
                             placeholder="Search orders..."
@@ -184,22 +180,13 @@ const CompletedOrders = () => {
 
 export default CompletedOrders;
 
-function OrderStat({ title, value }) {
-    return (
-        <div className="rounded-xl border border-gray-200 bg-white p-5">
-            <p className="text-[11px] text-gray-400">{title}</p>
-
-            <p className="mt-2 text-2xl font-semibold">{value}</p>
-        </div>
-    );
-}
 
 function Detail({ label, value }) {
     return (
         <div>
-            <p className="text-[10px] text-gray-400">{label}</p>
+            <p className="text-xs text-gray-400">{label}</p>
 
-            <p className="mt-1 text-xs font-medium text-gray-700">{value}</p>
+            <p className="text-xs font-medium text-gray-700">{value}</p>
         </div>
     );
 }
@@ -211,7 +198,7 @@ function StatusBadge({ status }) {
 
     return (
         <span
-            className={`rounded-full px-2 py-1 text-[10px] ${styles[status]}`}
+            className={`rounded-md px-2 py-1 text-xs ${styles[status]}`}
         >
             {status}
         </span>
