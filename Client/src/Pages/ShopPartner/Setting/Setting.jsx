@@ -15,7 +15,7 @@ const Setting = () => {
             <div className="mb-7">
                 <h2 className="text-2xl font-semibold">Settings</h2>
 
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="text-xs text-gray-500">
                     Manage your InkSync shop and application preferences
                 </p>
             </div>

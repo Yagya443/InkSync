@@ -1,6 +1,6 @@
 import React from "react";
 import { MdSearch, MdMoreVert, MdDownload } from "react-icons/md";
-import StatCard from "../../Components/StatCard";
+import StatCard from "../../../Components/ShopPartner/StatCard";
 
 const CompletedOrders = () => {
     const orders = [
@@ -180,7 +180,6 @@ const CompletedOrders = () => {
 
 export default CompletedOrders;
 
-
 function Detail({ label, value }) {
     return (
         <div>
@@ -197,9 +196,7 @@ function StatusBadge({ status }) {
     };
 
     return (
-        <span
-            className={`rounded-md px-2 py-1 text-xs ${styles[status]}`}
-        >
+        <span className={`rounded-md px-2 py-1 text-xs ${styles[status]}`}>
             {status}
         </span>
     );

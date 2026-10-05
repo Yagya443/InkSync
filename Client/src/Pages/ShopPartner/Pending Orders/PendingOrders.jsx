@@ -1,6 +1,6 @@
 import React from "react";
 import { MdSearch, MdDownload, MdMoreVert } from "react-icons/md";
-import StatCard from "../../Components/StatCard";
+import StatCard from "../../../Components/ShopPartner/StatCard";
 
 const PendingOrders = () => {
     const orders = [

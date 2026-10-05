@@ -1,6 +1,6 @@
 import React from "react";
 import { MdSearch, MdDownload, MdMoreVert } from "react-icons/md";
-import StatCard from "../../Components/StatCard";
+import StatCard from "../../../Components/ShopPartner/StatCard";
 
 const Orders = () => {
     const orders = [
@@ -74,11 +74,9 @@ const Orders = () => {
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] p-7 text-[#171717]">
-            {/* HEADER */}
             <div className="mb-7 flex items-center justify-between">
                 <div>
                     <h2 className="text-2xl font-semibold">Orders</h2>
-
                     <p className="text-xs text-gray-500">
                         Manage and process your stationery orders
                     </p>
