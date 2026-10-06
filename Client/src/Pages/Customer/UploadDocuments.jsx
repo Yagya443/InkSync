@@ -29,7 +29,7 @@ const UploadDocuments = () => {
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] px-6 py-10 text-[#171717]">
-            <div className="max-w-7xl">
+            <div className="mx-auto max-w-7xl">
                 <div className="flex items-center justify-between">
                     <div>
                         <p className="text-xs font-medium text-orange-500">
@@ -113,9 +113,11 @@ const UploadDocuments = () => {
                                             </p>
 
                                             <p className="text-xs text-gray-400">
-                                                {(file.size / 1024 / 1024).toFixed(
-                                                    2
-                                                )}
+                                                {(
+                                                    file.size /
+                                                    1024 /
+                                                    1024
+                                                ).toFixed(2)}
                                                 MB
                                             </p>
                                         </div>
@@ -133,14 +135,12 @@ const UploadDocuments = () => {
                     </div>
                 )}
 
-             <div className="mt-5 rounded-xl border border-gray-200 bg-white p-5">
+                <div className="mt-5 rounded-xl border border-gray-200 bg-white p-5">
                     <p className="text-xs font-medium">Printing at</p>
 
                     <div className="mt-2 flex items-center justify-between">
                         <div>
-                            <p className="text-sm font-bold">
-                                ABC Stationery
-                            </p>
+                            <p className="text-sm font-bold">ABC Stationery</p>
                             <p className="text-xs text-gray-400">
                                 Near TCET • 0.4 km away
                             </p>

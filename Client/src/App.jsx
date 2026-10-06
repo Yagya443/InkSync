@@ -9,6 +9,7 @@ import Layout from "./Components/ShopPartner/Layout";
 import Home2 from "./Pages/Customer/Home2";
 import UploadDocuments from "./Pages/Customer/UploadDocuments";
 import PrintingOption from "./Pages/Customer/PrintingOption";
+import PaymentGateway from "./Pages/Customer/PaymentGateway";
 function App() {
     return (
         <>
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/" element={<Home2/>}/>
                 <Route path="/upload" element={<UploadDocuments/>}/>
                 <Route path="/options" element={<PrintingOption />}/>
+                <Route path="/payment" element={<PaymentGateway />}/>
 
             </Routes>
         </>

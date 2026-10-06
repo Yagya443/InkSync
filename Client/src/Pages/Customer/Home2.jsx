@@ -42,7 +42,7 @@ const Home2 = () => {
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] px-6 py-10 text-[#171717]">
-            <div className=" max-w-7xl">
+            <div className="mx-auto max-w-7xl">
                 <div className="text-center">
                     <div className="flex items-center gap-1 justify-center">
                         <div className="flex h-8 w-8 items-center justify-center rounded-md bg-orange-500">
