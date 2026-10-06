@@ -10,12 +10,14 @@ import Home2 from "./Pages/Customer/Home2";
 import UploadDocuments from "./Pages/Customer/UploadDocuments";
 import PrintingOption from "./Pages/Customer/PrintingOption";
 import PaymentGateway from "./Pages/Customer/PaymentGateway";
+import PaymentSuccess from "./Pages/Customer/PaymentSuccess";
+import TrackOrder from "./Pages/Customer/TrackOrder";
 function App() {
     return (
         <>
             <Routes>
                 <Route path="/ShopPartner" element={<Layout />}>
-                    <Route index  element={<Home />} />
+                    <Route index element={<Home />} />
                     <Route path="Orders" element={<AllOrders />} />
                     <Route path="PendingOrders" element={<PendingOrders />} />
                     <Route
@@ -24,11 +26,12 @@ function App() {
                     />
                     <Route path="Settings" element={<Setting />} />
                 </Route>
-                <Route path="/" element={<Home2/>}/>
-                <Route path="/upload" element={<UploadDocuments/>}/>
-                <Route path="/options" element={<PrintingOption />}/>
-                <Route path="/payment" element={<PaymentGateway />}/>
-
+                <Route path="/" element={<Home2 />} />
+                <Route path="/upload" element={<UploadDocuments />} />
+                <Route path="/options" element={<PrintingOption />} />
+                <Route path="/payment" element={<PaymentGateway />} />
+                <Route path="/success" element={<PaymentSuccess />} />
+                <Route path="/trackOrder" element={<TrackOrder />} />
             </Routes>
         </>
     );
