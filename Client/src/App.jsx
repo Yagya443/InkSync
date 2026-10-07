@@ -12,10 +12,12 @@ import PrintingOption from "./Pages/Customer/PrintingOption";
 import PaymentGateway from "./Pages/Customer/PaymentGateway";
 import PaymentSuccess from "./Pages/Customer/PaymentSuccess";
 import TrackOrder from "./Pages/Customer/TrackOrder";
+import Login from "./Components/ShopPartner/Login";
 function App() {
     return (
         <>
             <Routes>
+                <Route path="/login" element={<Login />} />
                 <Route path="/ShopPartner" element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="Orders" element={<AllOrders />} />
