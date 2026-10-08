@@ -6,6 +6,7 @@ import {
     MdReceiptLong,
     MdArrowForward,
 } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const PaymentSuccess = () => {
     const order = {
@@ -16,6 +17,9 @@ const PaymentSuccess = () => {
         amount: 144,
         otp: "4821",
     };
+
+    
+    const navigate=useNavigate()
 
     const copyOTP = () => {
         navigator.clipboard.writeText(order.otp);
@@ -153,7 +157,7 @@ const PaymentSuccess = () => {
                 </div>
 
                 {/* TRACK ORDER */}
-                <button className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 py-3 text-xs font-semibold text-white transition hover:bg-orange-600">
+                <button onClick={()=>navigate('/trackOrder')} className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 py-3 text-xs font-semibold text-white transition hover:bg-orange-600">
                     Track My Order
                     <MdArrowForward size={16} />
                 </button>

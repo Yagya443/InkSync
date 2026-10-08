@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdArrowBack, MdLock, MdPayment, MdCheckCircle } from "react-icons/md";
 import { HiOutlineCash } from "react-icons/hi";
 import { MdCheckCircleOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const PaymentGateway = () => {
     const order = {
@@ -11,9 +12,15 @@ const PaymentGateway = () => {
         amount: 144,
     };
 
+    const [paymentMethod, setPaymentMethod] = useState("online");
+
+    const navigate=useNavigate()
+
     const handlePayment = () => {
         // Later we will connect Razorpay here
         console.log("Opening Razorpay...");
+
+        navigate("/success")
     };
 
     return (
@@ -101,11 +108,19 @@ const PaymentGateway = () => {
                                 checkout.
                             </p>
                             <div>
-                                <div className="mt-4 rounded-lg border-2 border-orange-500 bg-orange-50/40 py-2 px-4">
+                                <div
+                                    onClick={() => setPaymentMethod("online")}
+                                    className={`mt-4 rounded-lg border-2 py-2 px-4 cursor-pointer ${
+                                        paymentMethod === "online"
+                                            ? "border-orange-500 bg-orange-50/40"
+                                            : "border-gray-200"
+                                    }`}
+                                >
                                     <div className="flex items-center gap-4 py-2">
                                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 text-white">
                                             <MdPayment size={20} />
                                         </div>
+
                                         <div>
                                             <p className="text-xs font-semibold">
                                                 Online Payment
@@ -115,17 +130,28 @@ const PaymentGateway = () => {
                                             </p>
                                         </div>
 
-                                        <MdCheckCircle
-                                            className="ml-auto text-orange-500"
-                                            size={19}
-                                        />
+                                        {paymentMethod === "online" && (
+                                            <MdCheckCircle
+                                                className="ml-auto text-orange-500"
+                                                size={19}
+                                            />
+                                        )}
                                     </div>
                                 </div>
-                                <div className="mt-2 rounded-lg border-2 py-2 px-4">
+
+                                <div
+                                    onClick={() => setPaymentMethod("cash")}
+                                    className={`mt-2 rounded-lg border-2 py-2 px-4 cursor-pointer ${
+                                        paymentMethod === "cash"
+                                            ? "border-orange-500 bg-orange-50/40"
+                                            : "border-gray-200"
+                                    }`}
+                                >
                                     <div className="flex items-center gap-4 py-2">
                                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 text-white">
                                             <HiOutlineCash size={20} />
                                         </div>
+
                                         <div>
                                             <p className="text-xs font-semibold">
                                                 Cash on Delivery
@@ -135,10 +161,12 @@ const PaymentGateway = () => {
                                             </p>
                                         </div>
 
-                                        <MdCheckCircleOutline
-                                            className="ml-auto"
-                                            size={19}
-                                        />
+                                        {paymentMethod === "cash" && (
+                                            <MdCheckCircle
+                                                className="ml-auto text-orange-500"
+                                                size={19}
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +220,7 @@ const PaymentGateway = () => {
                     </div>
                 </div>
 
-                <button className="mt-6 flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
+                <button onClick={()=>navigate('/option')} className="mt-6 flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
                     <MdArrowBack size={16} />
                     Back to Printing Options
                 </button>

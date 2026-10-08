@@ -6,6 +6,7 @@ import {
     MdRemove,
     MdInsertDriveFile,
 } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const PrintingOption = () => {
     const [files, setFiles] = useState([
@@ -44,6 +45,9 @@ const PrintingOption = () => {
 
         return total + file.pages * file.copies * pricePerPage;
     }, 0);
+
+    const navigate=useNavigate()
+
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] px-6 py-10 text-[#171717]">
@@ -319,12 +323,12 @@ const PrintingOption = () => {
                 </div>
 
                 <div className="mt-6 flex items-center justify-between">
-                    <button className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
+                    <button onClick={()=>navigate('/upload')} className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
                         <MdArrowBack size={16} />
                         Back
                     </button>
 
-                    <button className="flex items-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 text-xs font-semibold text-white hover:bg-orange-600">
+                    <button onClick={()=>navigate('/payment')} className="flex items-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 text-xs font-semibold text-white hover:bg-orange-600">
                         Continue to Payment
                         <MdArrowForward size={16} />
                     </button>

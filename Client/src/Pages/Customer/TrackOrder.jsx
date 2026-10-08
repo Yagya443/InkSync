@@ -9,6 +9,7 @@ import {
     MdDone,
     MdArrowBack,
 } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const TrackOrder = () => {
     const order = {
@@ -54,6 +55,8 @@ const TrackOrder = () => {
             completed: false,
         },
     ];
+
+    const navigate=useNavigate()
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] px-6 py-10 text-[#171717]">
@@ -244,7 +247,10 @@ const TrackOrder = () => {
                 </div>
 
                 {/* BACK */}
-                <button className="mt-6 flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
+                <button
+
+                        onClick={()=>navigate('/success')}
+                 className="mt-6 flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
                     <MdArrowBack size={16} />
                     Back
                 </button>

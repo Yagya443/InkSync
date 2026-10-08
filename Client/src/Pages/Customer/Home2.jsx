@@ -147,7 +147,7 @@ const Home2 = () => {
                             </div>
 
                             <button
-                                onClick={() => navigate("upload")}
+                                onClick={() => navigate("/upload")}
                                 className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600"
                             >
                                 Select Shop

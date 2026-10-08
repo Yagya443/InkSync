@@ -6,8 +6,12 @@ import {
     MdArrowForward,
     MdInsertDriveFile,
 } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const UploadDocuments = () => {
+
+    const navigate=useNavigate()
+
     const fileInputRef = useRef(null);
     const [files, setFiles] = useState([]);
 
@@ -24,7 +28,7 @@ const UploadDocuments = () => {
         console.log("Files:", files);
 
         // Later:
-        // navigate("/Shop/1/checkout");
+        navigate("/options");
     };
 
     return (
@@ -146,14 +150,18 @@ const UploadDocuments = () => {
                             </p>
                         </div>
 
-                        <button className="text-xs font-medium text-orange-500 hover:text-orange-600">
+                        <button 
+                            onClick={()=>navigate('/')}
+                        className="text-xs font-medium text-orange-500 hover:text-orange-600">
                             Change
                         </button>
                     </div>
                 </div>
 
                 <div className="mt-6 flex items-center justify-between">
-                    <button className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50">
+                    <button
+                        onClick={()=>navigate('/')}
+                    className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50">
                         <MdArrowBack size={16} />
                         Back
                     </button>
