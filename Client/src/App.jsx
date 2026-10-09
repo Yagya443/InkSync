@@ -13,6 +13,7 @@ import PaymentGateway from "./Pages/Customer/PaymentGateway";
 import PaymentSuccess from "./Pages/Customer/PaymentSuccess";
 import TrackOrder from "./Pages/Customer/TrackOrder";
 import Login from "./Components/ShopPartner/Login";
+import AddOptionModel from "./Components/ShopPartner/AddOptionModel";
 function App() {
     return (
         <>
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/payment" element={<PaymentGateway />} />
                 <Route path="/success" element={<PaymentSuccess />} />
                 <Route path="/trackOrder" element={<TrackOrder />} />
+                {/* <Route path="/model" element={<AddOptionModel />} /> */}
             </Routes>
         </>
     );

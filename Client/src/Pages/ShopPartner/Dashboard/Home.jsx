@@ -41,27 +41,6 @@ const Home = () => {
         },
     ];
 
-    const stats = [
-        {
-            title: "Total Orders",
-            value: "128",
-        },
-        {
-            title: "Pending Orders",
-            value: "12",
-        },
-        {
-            title: "Completed Orders",
-            value: "116",
-        },
-        {
-            title: "Total Sales",
-            value: "₹4,320",
-        },
-    ];
-
-
-
     return (
         <div className="min-h-screen bg-[#f8f8f7] text-[#171717]">
             <main className="p-7">

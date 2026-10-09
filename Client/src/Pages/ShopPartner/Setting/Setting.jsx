@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     MdStore,
     MdPrint,
@@ -6,10 +6,16 @@ import {
     MdSecurity,
     MdSave,
     MdLock,
+    MdAdd,
 } from "react-icons/md";
 import { FaRupeeSign } from "react-icons/fa";
+import AddOptionModel from "../../../Components/ShopPartner/AddOptionModel";
+
 
 const Setting = () => {
+
+    const [toggleModel,setToggleModel]=useState(false)
+
     return (
         <div className="min-h-screen bg-[#f8f8f7] p-7 text-[#171717]">
             <div className="mb-7">
@@ -48,7 +54,7 @@ const Setting = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-end border-t border-gray-100 p-5">
+                    <div className="flex justify-end border-t border-gray-100 p-5 gap-4">
                         <button className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600">
                             <MdSave size={16} />
                             Save Changes
@@ -81,7 +87,12 @@ const Setting = () => {
                         <InputField label="Spiral Binding" value="₹20.00" />
                     </div>
 
-                    <div className="flex justify-end border-t border-gray-100 p-5">
+                    <div className="flex justify-end border-t border-gray-100 p-5 gap-4">
+                        <button onClick={()=>setToggleModel(true)} className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600">
+                            <MdAdd size={16} />
+                            Add Options
+                        </button>
+
                         <button className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600">
                             <MdSave size={16} />
                             Save Changes
@@ -319,6 +330,11 @@ const Setting = () => {
                     </div>
                 </div>
             </div>
+
+            {
+                toggleModel && <AddOptionModel setToggleModel={setToggleModel}/>
+            }
+
         </div>
     );
 };

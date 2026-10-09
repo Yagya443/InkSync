@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MdPrint, MdEmail, MdLock } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -15,6 +16,8 @@ const Login = () => {
 
         // Backend login will be added here
     };
+
+    const navigate=useNavigate()
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-[#f8f8f7] px-4">
@@ -81,6 +84,7 @@ const Login = () => {
                         </div>
                         <button
                             type="submit"
+                            onClick={()=>navigate('/ShopPartner')}
                             className="w-full cursor-pointer rounded-lg bg-orange-500 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600"
                         >
                             Sign In
