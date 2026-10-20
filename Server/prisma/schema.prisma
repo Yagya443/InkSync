@@ -1,11 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -13,16 +7,80 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model StationaryOwner{
-  id Int @id @default(autoincrement())
+model StationaryOwner {
+  id        Int      @id @default(autoincrement())
   ownerName String
-  shopName String
-  email String @unique
-  phone String   @unique
-  passwordHash String
-  city String
-  isOpen       Boolean  @default(true)
+  shopName  String
+  email     String   @unique
+  password  String
+  city      String
+  isOpen    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  options PrintingOption[]
+  orders  Order[]
+}
+
+model PrintingOption {
+  ownerId Int
+  name    String
+  value   Decimal @db.Decimal(10, 2)
+
+  owner StationaryOwner @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@id([ownerId, name])
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  orderCode   String      @unique
+  otp         String
+  ownerId     Int
+  status      OrderStatus @default(PENDING)
+  totalPages  Int
+  totalAmount Decimal     @db.Decimal(10, 2)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  owner     StationaryOwner @relation(fields: [ownerId], references: [id])
+  documents Document[]
+
+  @@index([ownerId, status])
+}
+
+model Document {
+  id       Int       @id @default(autoincrement())
+  orderId  Int
+  fileName String
+  fileKey  String
+  fileSize Int
+  pages    Int
+  copies   Int       @default(1)
+  type     PrintType @default(BW)
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+}
+
+enum PrintType {
+  BW
+  COLOR
+}
+
+enum PaymentMethod {
+  ONLINE
+  CASH
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
 }
