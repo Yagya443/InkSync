@@ -1,4 +1,6 @@
-const { Prisma } = require("@prisma/client");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
@@ -11,12 +13,14 @@ const login = async (req, res) => {
                 .status(400)
                 .json({ error: "Email and password required" });
         }
-        const owner = await prisma.StationaryOwner.findUnique({
+        const owner = await prisma.stationaryOwner.findUnique({
             where: { email },
         });
 
+        if (!owner) {
+            return res.status(401).json({ error: "Email doesnt exist" });
+        }
         const matches = await bcrypt.compare(password, owner.password);
-
         if (!matches) {
             return res.status(400).json({ error: "Invalid password" });
         }
@@ -43,7 +47,7 @@ const login = async (req, res) => {
 };
 const signup = async (req, res) => {
     try {
-        const { ownerName, shopName, email, password } = res.body;
+        const { ownerName, shopName, email, password } = req.body;
 
         if (!ownerName || !shopName || !email || !password) {
             return res
@@ -69,7 +73,7 @@ const signup = async (req, res) => {
         });
 
         const token = jwt.sign(
-            { id: pro.id, email: owner.email },
+            { id: profile.id, email: profile.email },
             process.env.JWT_SECRET,
             { expiresIn: "7d" },
         );
@@ -84,5 +88,30 @@ const signup = async (req, res) => {
         });
     }
 };
+const getUser = async (req, res) => {
+    try {
+        const profile = await prisma.stationaryOwner.findUnique({
+            where: { id: req.user.id },
+            select: {
+                id: true,
+                ownerName: true,
+                shopName: true,
+                email: true,
+                phone: true,
+            },
+        });
 
-module.exports = { login, signup };
+        if (!owner) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.status(200).json({ owner });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+            error: "Something went wrong in getUser Controller",
+        });
+    }
+};
+
+module.exports = { login, signup ,getUser};
