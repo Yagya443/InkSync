@@ -69,7 +69,7 @@ const signup = async (req, res) => {
             ownerName,
             shopName,
             email,
-            hashedPassword: password,
+            password:hashedPassword,
         });
 
         const token = jwt.sign(
@@ -101,7 +101,7 @@ const getUser = async (req, res) => {
             },
         });
 
-        if (!owner) {
+        if (!profile) {
             return res.status(404).json({ error: "User not found" });
         }
 
