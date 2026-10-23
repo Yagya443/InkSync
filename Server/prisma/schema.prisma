@@ -33,7 +33,6 @@ model PrintingOption {
 
 model Order {
   id          Int         @id @default(autoincrement())
-  orderCode   String      @unique
   otp         String
   ownerId     Int
   status      OrderStatus @default(PENDING)

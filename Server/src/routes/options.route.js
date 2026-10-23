@@ -12,4 +12,4 @@ router.put("/", authMiddleware, setOption);
 router.get("/", authMiddleware, getMyOptions);
 router.patch("/shop-status", authMiddleware, setShopStatus);
 
-module.exports = { router };
+module.exports = router;
