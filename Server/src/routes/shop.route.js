@@ -6,3 +6,5 @@ const router = express.Router();
 
 router.get("/", authMiddleware, getAllShop);
 router.get("/:id", authMiddleware, getShop);
+
+module.exports = router;
