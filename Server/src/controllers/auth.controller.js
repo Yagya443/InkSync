@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-
         if (!email || !password) {
             return res
                 .status(400)
@@ -35,6 +34,7 @@ const login = async (req, res) => {
         );
 
         res.status(201).json({
+            owner,
             token,
             message: "Login is been done successfully ",
         });
@@ -66,10 +66,12 @@ const signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const profile = await prisma.stationaryOwner.create({
-            ownerName,
-            shopName,
-            email,
-            password:hashedPassword,
+            data: {
+                ownerName,
+                shopName,
+                email,
+                password: hashedPassword,
+            },
         });
 
         const token = jwt.sign(
@@ -79,7 +81,9 @@ const signup = async (req, res) => {
         );
 
         res.status(201).json({
+            profile,
             token,
+            message: "Accout Create Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -104,7 +108,6 @@ const getUser = async (req, res) => {
         if (!profile) {
             return res.status(404).json({ error: "User not found" });
         }
-
         res.status(200).json({ owner });
     } catch (error) {
         res.status(500).json({
@@ -114,4 +117,4 @@ const getUser = async (req, res) => {
     }
 };
 
-module.exports = { login, signup ,getUser};
+module.exports = { login, signup, getUser };

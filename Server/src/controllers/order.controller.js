@@ -15,8 +15,6 @@ const createOrder = async (req, res) => {
             include: { options: true },
         });
 
-        if (!owner.isOpen)
-            return res.status(400).json({ error: "Shop is closed" });
 
         const prices = {};
         owner.options.forEach((o) => (prices[o.name] = Number(o.value)));

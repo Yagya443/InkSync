@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { MdPrint, MdEmail, MdLock } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -9,15 +11,34 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log({
+        loginMutation.mutate({
             email,
             password,
         });
-
-        // Backend login will be added here
     };
 
-    const navigate=useNavigate()
+    const loginMutation = useMutation({
+        mutationFn: async ({email, password}) => {
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_URL}/user/login`,
+                {
+                    email,
+                    password,
+                },
+            );
+            return response.data;
+        },
+        onSuccess: (data) => {
+            localStorage.setItem("token", data.token);
+            navigate("/ShopPartner")
+            console.log("Login successful:", data);
+        },
+        onError: (error) => {
+            console.error("Backend error ",error);
+        },
+    });
+
+    const navigate = useNavigate();
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-[#f8f8f7] px-4">
@@ -84,7 +105,6 @@ const Login = () => {
                         </div>
                         <button
                             type="submit"
-                            onClick={()=>navigate('/ShopPartner')}
                             className="w-full cursor-pointer rounded-lg bg-orange-500 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600"
                         >
                             Sign In

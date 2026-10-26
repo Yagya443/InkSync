@@ -161,6 +161,9 @@ const Home2 = () => {
                     No account required • No phone number sharing
                 </p>
             </div>
+            <button onClick={() => navigate("ShopPartner")}>
+                Login as a shopkeeper
+            </button>
         </div>
     );
 };
