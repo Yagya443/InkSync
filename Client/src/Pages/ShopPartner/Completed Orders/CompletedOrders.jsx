@@ -4,9 +4,8 @@ import StatCard from "../../../Components/ShopPartner/StatCard";
 import { useQuery } from "@tanstack/react-query";
 
 const CompletedOrders = () => {
-
     const { data, isLoading, isError } = useQuery({
-        queryKey: ["orders"],
+        queryKey: ["orders", "completed"],
         queryFn: async () => {
             const token = localStorage.getItem("token");
             const response = await axios.get(
@@ -17,9 +16,9 @@ const CompletedOrders = () => {
                     },
                 },
             );
-            console.log(response.data);
 
-            return response.data;
+            const allOrders = response.data.orders;
+            return allOrders.filter((ele) => ele.status === "Completed");
         },
     });
 
@@ -78,13 +77,13 @@ const CompletedOrders = () => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 px-6 py-3">
-                    {data.orders.length == 0 ? (
+                    {data.length == 0 ? (
                         <div className="p-10 text-center">
                             You Dont Have any Completed order
                         </div>
                     ) : (
                         <>
-                            {data.orders.map((order) => (
+                            {data.map((order) => (
                                 <div
                                     key={order.id}
                                     className="rounded-xl border border-gray-200 bg-white p-5 transition hover:shadow-md"

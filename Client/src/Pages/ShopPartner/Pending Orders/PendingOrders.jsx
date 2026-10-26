@@ -1,76 +1,39 @@
 import React from "react";
 import { MdSearch, MdDownload, MdMoreVert } from "react-icons/md";
 import StatCard from "../../../Components/ShopPartner/StatCard";
+import { useQuery } from "@tanstack/react-query";
 
 const PendingOrders = () => {
-    const orders = [
-        {
-            id: "#1024",
-            customer: "Guest",
-            document: "DBMS_Assignment.pdf",
-            pages: 36,
-            copies: 2,
-            type: "B&W",
-            amount: "₹16.40",
-            status: "Pending",
-            date: "Today, 10:42 AM",
-        },
-        {
-            id: "#1020",
-            customer: "Guest",
-            document: "TOC_Questions.pdf",
-            pages: 45,
-            copies: 1,
-            type: "B&W",
-            amount: "₹21.60",
-            status: "Pending",
-            date: "Today, 09:31 AM",
-        },
-        {
-            id: "#1017",
-            customer: "Guest",
-            document: "OS_Practical.pdf",
-            pages: 28,
-            copies: 2,
-            type: "Color",
-            amount: "₹28.00",
-            status: "Pending",
-            date: "Today, 08:54 AM",
-        },
-        {
-            id: "#1014",
-            customer: "Guest",
-            document: "CN_Notes.pdf",
-            pages: 62,
-            copies: 1,
-            type: "B&W",
-            amount: "₹29.80",
-            status: "Pending",
-            date: "Yesterday, 06:42 PM",
-        },
-        {
-            id: "#1011",
-            customer: "Guest",
-            document: "AI_Assignment.pdf",
-            pages: 32,
-            copies: 1,
-            type: "B&W",
-            amount: "₹15.40",
-            status: "Pending",
-            date: "Yesterday, 05:21 PM",
-        },
-        {
-            id: "#1008",
-            customer: "Guest",
-            document: "Math_Assignment.pdf",
-            pages: 24,
-            copies: 2,
-            type: "Color",
-            amount: "₹22.00",
-            status: "Pending",
-            date: "Yesterday, 04:12 PM",
-        },
-    ];
+     const { data, isLoading, isError } = useQuery({
+            queryKey: ["orders","pending"],
+            queryFn: async () => {
+                const token = localStorage.getItem("token");
+                const response = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/order`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    },
+                );
+                console.log(response.data);
+    
+                const allOrders= response.data.orders;
+                return allOrders.filter((ele) => ele.status === "Pending");
+            },
+        });
+
+        if (isLoading) {
+        return <div className="p-10 text-center">Loading orders...</div>;
+    }
+
+    if (isError) {
+        return (
+            <div className="p-10 text-center text-red-500">
+                Failed to load orders.
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] p-7 text-[#171717]">
@@ -85,7 +48,6 @@ const PendingOrders = () => {
                     Today
                 </button>
             </div>
-
             <div className="grid grid-cols-4 mb-5 gap-4">
                 <StatCard title="Pending Orders" value="12" />
                 <StatCard title="Total Pages" value="486" />
@@ -116,61 +78,82 @@ const PendingOrders = () => {
                 </div>
 
                 <div className=" grid grid-cols-3 gap-4 px-6  py-3">
-                    {orders.map((order) => (
-                        <div
-                            key={order.id}
-                            className="rounded-xl border border-gray-200 bg-white p-5 transition hover:shadow-md"
-                        >
-                            <div className="flex items-start justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 text-orange-500">
-                                        PDF
-                                    </div>
-
-                                    <div>
-                                        <p className="text-sm font-semibold">
-                                            {order.document}
-                                        </p>
-                                        <p className="text-[10px] text-gray-400">
-                                            Order {order.id} • {order.date}
-                                        </p>
-                                    </div>
-                                </div>
-                                <StatusBadge status={order.status} />
-                            </div>
-
-                            <div className="my-5 grid  grid-cols-4 gap-3 border-y border-gray-100  py-4">
-                                <Detail label="Pages" value={order.pages} />
-                                <Detail label="Copies" value={order.copies} />
-                                <Detail label="Print" value={order.type} />
-                                <Detail label="Amount" value={order.amount} />
-                            </div>
-
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-xs  text-gray-400">
-                                        Customer
-                                    </p>
-
-                                    <p className="text-xs font-medium">
-                                        {order.customer}
-                                    </p>
-                                </div>
-
-                                <div className="flex items-center gap-2">
-                                    <button className="rounded-md cursor-pointer  bg-green-500 px-2 py-1 text-xs font-semibold text-white transition hover:bg-green-600">
-                                        Mark as Done
-                                    </button>
-                                    <button className="rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700">
-                                        <MdDownload size={17} />
-                                    </button>
-                                    <button className="rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700">
-                                        <MdMoreVert size={17} />
-                                    </button>
-                                </div>
-                            </div>
+                    {data.length == 0 ? (
+                        <div className="p-10 text-center">
+                            You Dont Have any Pending order
                         </div>
-                    ))}
+                    ) : (
+                        <>
+                            {data.map((order) => (
+                                <div
+                                    key={order.id}
+                                    className="rounded-xl border border-gray-200 bg-white p-5 transition hover:shadow-md"
+                                >
+                                    <div className="flex items-start justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 text-orange-500">
+                                                PDF
+                                            </div>
+
+                                            <div>
+                                                <p className="text-sm font-semibold">
+                                                    {order.document}
+                                                </p>
+                                                <p className="mt-1 text-[10px] text-gray-400">
+                                                    Order {order.id} •{" "}
+                                                    {order.date}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <StatusBadge status={order.status} />
+                                    </div>
+                                    <div className="my-5 grid grid-cols-4 gap-3 border-y border-gray-100 py-4">
+                                        <Detail
+                                            label="Pages"
+                                            value={order.pages}
+                                        />
+
+                                        <Detail
+                                            label="Copies"
+                                            value={order.copies}
+                                        />
+
+                                        <Detail
+                                            label="Print"
+                                            value={order.type}
+                                        />
+
+                                        <Detail
+                                            label="Amount"
+                                            value={order.amount}
+                                        />
+                                    </div>
+
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-xs text-gray-400">
+                                                Customer
+                                            </p>
+                                            <p className="text-xs font-medium">
+                                                {order.customer}
+                                            </p>
+                                        </div>
+
+                                        <div className="flex items-center gap-2">
+                                            <button className="rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700">
+                                                {" "}
+                                                <MdDownload size={17} />
+                                            </button>
+                                            <button className="rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-700">
+                                                <MdMoreVert size={17} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
         </div>
