@@ -11,10 +11,7 @@ const authMiddleware = (req, res, next) => {
             });
         }
         const token = authToken.split(" ")[1];
-
-        console.log("SECRET FROM ENV:", process.env.JWT_SECRET);
-        console.log("TOKEN RECEIVED:", token);
-
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         req.user = decoded;

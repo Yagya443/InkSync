@@ -39,8 +39,11 @@ const login = async (req, res) => {
             message: "Login is been done successfully ",
         });
     } catch (error) {
+        console.log("error");
+        
         res.status(500).json({
             message: error.message,
+
             error: "Something went wrong in Login Controller",
         });
     }

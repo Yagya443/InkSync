@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,7 +19,7 @@ const Login = () => {
     };
 
     const loginMutation = useMutation({
-        mutationFn: async ({email, password}) => {
+        mutationFn: async ({ email, password }) => {
             const response = await axios.post(
                 `${import.meta.env.VITE_API_URL}/user/login`,
                 {
@@ -30,15 +31,13 @@ const Login = () => {
         },
         onSuccess: (data) => {
             localStorage.setItem("token", data.token);
-            navigate("/ShopPartner")
+            navigate("/ShopPartner");
             console.log("Login successful:", data);
         },
         onError: (error) => {
-            console.error("Backend error ",error);
+            console.error("Backend error message:", error.response?.data);
         },
     });
-
-    const navigate = useNavigate();
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-[#f8f8f7] px-4">
