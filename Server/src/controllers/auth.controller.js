@@ -95,23 +95,24 @@ const signup = async (req, res) => {
         });
     }
 };
+
 const getUser = async (req, res) => {
     try {
-        const profile = await prisma.stationaryOwner.findUnique({
-            where: { id: req.user.id },
+        const profile = await prisma.stationaryOwner.findMany({
             select: {
                 id: true,
                 ownerName: true,
                 shopName: true,
-                email: true,
-                phone: true,
+                email: true, 
+                location:true,
+                options:true   
             },
         });
 
         if (!profile) {
             return res.status(404).json({ error: "User not found" });
         }
-        res.status(200).json({ owner });
+        res.status(200).json({ profile });
     } catch (error) {
         res.status(500).json({
             message: error.message,

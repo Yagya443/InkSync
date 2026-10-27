@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import {
     MdLocationOn,
     MdArrowForward,
@@ -7,38 +9,35 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Home2 = () => {
-    const shops = [
-        {
-            id: 1,
-            name: "ABC Stationery",
-            location: "Near TCET",
-            distance: "0.4 km",
-            services: "B&W • Color • Binding",
-        },
-        {
-            id: 2,
-            name: "Quick Prints",
-            location: "Thakur Village",
-            distance: "0.8 km",
-            services: "B&W • Color • Scanning",
-        },
-        {
-            id: 3,
-            name: "Student Xerox Center",
-            location: "Kandivali East",
-            distance: "1.2 km",
-            services: "B&W • Color • Binding",
-        },
-        {
-            id: 4,
-            name: "City Print Hub",
-            location: "Borivali West",
-            distance: "1.8 km",
-            services: "B&W • Color • Lamination",
-        },
-    ];
+   const navigate = useNavigate();
 
-    const navigate = useNavigate();
+    const {
+        data = [],
+        isError,
+        isLoading,
+        error,
+    } = useQuery({
+        queryKey: ["allShops"],
+        queryFn: async () => {
+            const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/shop`,
+            );
+            console.log(response.data.shops);
+            return response.data.shops;
+        },
+    });
+
+    if (isError) {
+        console.log(error);
+        return (
+            <div className="p-10 text-center text-red-500">
+                Failed to load orders.
+            </div>
+        );
+    }
+
+    if (isLoading)
+        return <div className="p-5 text-center">Loading shops...</div>;
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] px-6 py-10 text-[#171717]">
@@ -86,7 +85,7 @@ const Home2 = () => {
                 </div>
 
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                    {shops.map((shop) => (
+                    {data.map((shop) => (
                         <div
                             key={shop.id}
                             className="rounded-xl border cursor-pointer border-gray-200 bg-white p-5 transition hover:border-orange-200 hover:shadow-md"
@@ -95,23 +94,23 @@ const Home2 = () => {
                                 <div className="flex items-center gap-3">
                                     <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-orange-50 text-orange-500">
                                         <span className="text-sm font-bold">
-                                            {shop.name.charAt(0)}
+                                            {shop.shopName.charAt(0)}
                                         </span>
                                     </div>
 
                                     <div>
                                         <h2 className="text-sm font-semibold">
-                                            {shop.name}
+                                            {shop.shopName}
                                         </h2>
 
-                                        <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-1 mt-1">
                                             <MdLocationOn
                                                 size={13}
                                                 className="text-gray-400"
                                             />
 
                                             <p className="text-xs text-gray-400">
-                                                {shop.location}
+                                                {shop.location || "Location"}
                                             </p>
                                         </div>
                                     </div>
@@ -130,7 +129,12 @@ const Home2 = () => {
                                         </p>
 
                                         <p className="text-xs text-gray-600">
-                                            {shop.services}
+                                            {shop.options &&
+                                            shop.options.length > 0
+                                                ? shop.options
+                                                      .map((opt) => opt.name)
+                                                      .join(" • ")
+                                                : "B&W • Color"}
                                         </p>
                                     </div>
 
@@ -140,14 +144,22 @@ const Home2 = () => {
                                         </p>
 
                                         <p className="text-xs font-medium text-gray-700">
-                                            {shop.distance}
+                                            {shop.distance || "5km"}
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
                             <button
-                                onClick={() => navigate("/upload")}
+                                onClick={() =>
+                                    navigate("/upload", {
+                                        state: {
+                                            shopId: shop.id,
+                                            shopName: shop.shopName,
+                                            address:shop.location
+                                        },
+                                    })
+                                }
                                 className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600"
                             >
                                 Select Shop

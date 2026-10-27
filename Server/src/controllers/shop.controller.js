@@ -4,7 +4,14 @@ const prisma = new PrismaClient();
 const getAllShop = async (req, res) => {
     try {
         const shops = await prisma.stationaryOwner.findMany({
-            select: { id: true, shopName: true },
+            select: {
+                id: true,
+                ownerName: true,
+                shopName: true,
+                email: true,
+                location: true,
+                options: true,
+            },
         });
 
         res.status(200).json({ shops });
@@ -41,4 +48,4 @@ const getShop = async (req, res) => {
     }
 };
 
-module.exports = { getAllShop,getShop };
+module.exports = { getAllShop, getShop };

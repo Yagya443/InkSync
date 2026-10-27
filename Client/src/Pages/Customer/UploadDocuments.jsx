@@ -1,3 +1,5 @@
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import React, { useRef, useState } from "react";
 import {
     MdCloudUpload,
@@ -6,11 +8,13 @@ import {
     MdArrowForward,
     MdInsertDriveFile,
 } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UploadDocuments = () => {
+    const navigate = useNavigate();
 
-    const navigate=useNavigate()
+    const location = useLocation();
+    const { shopId, shopName, address } = location.state || {};
 
     const fileInputRef = useRef(null);
     const [files, setFiles] = useState([]);
@@ -26,10 +30,39 @@ const UploadDocuments = () => {
 
     const handleContinue = () => {
         console.log("Files:", files);
-
-        // Later:
-        navigate("/options");
+        documnetMutation.mutate({ files });
     };
+
+    const documnetMutation = useMutation({
+        mutationFn: async ({ files }) => {
+            const formData = new FormData();
+            formData.append("shopId", shopId);
+
+            files.forEach((file) => {
+                formData.append("files", file);
+            });
+
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_URL}/documents/upload`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                },
+            );
+            return response.data;
+        },
+        onSuccess: (data) => {
+            console.log("Upload successful:", data);
+            navigate("/options", {
+                state: { shopId, shopName, address, uploadData: data },
+            });
+        },
+        onError: (error) => {
+            console.error("Backend error message:", error);
+        },
+    });
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] px-6 py-10 text-[#171717]">
@@ -144,15 +177,16 @@ const UploadDocuments = () => {
 
                     <div className="mt-2 flex items-center justify-between">
                         <div>
-                            <p className="text-sm font-bold">ABC Stationery</p>
+                            <p className="text-sm font-bold">{shopName}</p>
                             <p className="text-xs text-gray-400">
-                                Near TCET • 0.4 km away
+                                {address || "No location"}
                             </p>
                         </div>
 
-                        <button 
-                            onClick={()=>navigate('/')}
-                        className="text-xs font-medium text-orange-500 hover:text-orange-600">
+                        <button
+                            onClick={() => navigate("/")}
+                            className="text-xs font-medium text-orange-500 hover:text-orange-600"
+                        >
                             Change
                         </button>
                     </div>
@@ -160,8 +194,9 @@ const UploadDocuments = () => {
 
                 <div className="mt-6 flex items-center justify-between">
                     <button
-                        onClick={()=>navigate('/')}
-                    className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50">
+                        onClick={() => navigate("/")}
+                        className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50"
+                    >
                         <MdArrowBack size={16} />
                         Back
                     </button>

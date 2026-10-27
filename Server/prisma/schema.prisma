@@ -17,6 +17,7 @@ model StationaryOwner {
   isOpen    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  location String?
 
   options PrintingOption[]
   orders  Order[]
@@ -26,7 +27,6 @@ model PrintingOption {
   ownerId Int
   name    String
   value   Decimal @db.Decimal(10, 2)
-
   owner StationaryOwner @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
   @@id([ownerId, name])
@@ -44,8 +44,6 @@ model Order {
 
   owner     StationaryOwner @relation(fields: [ownerId], references: [id])
   documents Document[]
-  user      User?           @relation(fields: [userId], references: [id])
-  userId    Int?
 
   @@index([ownerId, status])
 }
