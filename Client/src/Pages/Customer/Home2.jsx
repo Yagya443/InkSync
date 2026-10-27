@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useState } from "react";
 import {
     MdLocationOn,
     MdArrowForward,
@@ -9,7 +10,9 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Home2 = () => {
-   const navigate = useNavigate();
+    const navigate = useNavigate();
+
+    const [inputVal, setInputVal] = useState("");
 
     const {
         data = [],
@@ -22,7 +25,6 @@ const Home2 = () => {
             const response = await axios.get(
                 `${import.meta.env.VITE_API_URL}/shop`,
             );
-            console.log(response.data.shops);
             return response.data.shops;
         },
     });
@@ -38,6 +40,15 @@ const Home2 = () => {
 
     if (isLoading)
         return <div className="p-5 text-center">Loading shops...</div>;
+
+    const filteredData = data.filter((e) => {
+        return (
+            e.shopName?.toLowerCase().includes(inputVal.toLowerCase()) ||
+            e.location?.toLowerCase().includes(inputVal.toLowerCase()) ||
+            e.ownerName?.toLowerCase().includes(inputVal.toLowerCase()) ||
+            ""
+        );
+    });
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] px-6 py-10 text-[#171717]">
@@ -58,16 +69,16 @@ const Home2 = () => {
                         directly.
                     </p>
                 </div>
-
                 <div className="mt-8 flex max-w-xl items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-3">
                     <MdSearch size={19} className="text-gray-400" />
                     <input
                         type="text"
                         placeholder="Search stationery or location..."
+                        onChange={(e) => setInputVal(e.target.value)}
+                        value={inputVal}
                         className="w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
                     />
                 </div>
-
                 <div className="mt-7 flex items-center justify-between">
                     <div>
                         <p className="text-xs font-medium text-gray-500">
@@ -83,9 +94,8 @@ const Home2 = () => {
                         Use my location
                     </button>
                 </div>
-
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                    {data.map((shop) => (
+                    {filteredData?.map((shop) => (
                         <div
                             key={shop.id}
                             className="rounded-xl border cursor-pointer border-gray-200 bg-white p-5 transition hover:border-orange-200 hover:shadow-md"
@@ -156,7 +166,7 @@ const Home2 = () => {
                                         state: {
                                             shopId: shop.id,
                                             shopName: shop.shopName,
-                                            address:shop.location
+                                            address: shop.location,
                                         },
                                     })
                                 }
@@ -173,7 +183,7 @@ const Home2 = () => {
                     No account required • No phone number sharing
                 </p>
             </div>
-            <button onClick={() => navigate("ShopPartner")}>
+            <button onClick={() => navigate("/ShopPartner")}>
                 Login as a shopkeeper
             </button>
         </div>
