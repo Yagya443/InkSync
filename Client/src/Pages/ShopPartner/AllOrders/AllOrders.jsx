@@ -5,8 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const Orders = () => {
-
-    const { data, isLoading, isError } = useQuery({
+    const {
+        data = [],
+        isLoading,
+        isError,
+    } = useQuery({
         queryKey: ["orders"],
         queryFn: async () => {
             const token = localStorage.getItem("token");

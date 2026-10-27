@@ -2,10 +2,11 @@ import React from "react";
 import { MdSearch, MdMoreVert, MdDownload } from "react-icons/md";
 import StatCard from "../../../Components/ShopPartner/StatCard";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const CompletedOrders = () => {
-    const { data, isLoading, isError } = useQuery({
-        queryKey: ["orders", "completed"],
+    const { data=[], isLoading, isError } = useQuery({
+        queryKey: ["orders","completed"],
         queryFn: async () => {
             const token = localStorage.getItem("token");
             const response = await axios.get(
@@ -83,7 +84,7 @@ const CompletedOrders = () => {
                         </div>
                     ) : (
                         <>
-                            {data.map((order) => (
+                            {data?.map((order) => (
                                 <div
                                     key={order.id}
                                     className="rounded-xl border border-gray-200 bg-white p-5 transition hover:shadow-md"

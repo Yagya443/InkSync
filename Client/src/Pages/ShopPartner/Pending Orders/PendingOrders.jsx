@@ -2,9 +2,10 @@ import React from "react";
 import { MdSearch, MdDownload, MdMoreVert } from "react-icons/md";
 import StatCard from "../../../Components/ShopPartner/StatCard";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const PendingOrders = () => {
-     const { data, isLoading, isError } = useQuery({
+     const { data=[], isLoading, isError } = useQuery({
             queryKey: ["orders","pending"],
             queryFn: async () => {
                 const token = localStorage.getItem("token");
@@ -16,7 +17,6 @@ const PendingOrders = () => {
                         },
                     },
                 );
-                console.log(response.data);
     
                 const allOrders= response.data.orders;
                 return allOrders.filter((ele) => ele.status === "Pending");

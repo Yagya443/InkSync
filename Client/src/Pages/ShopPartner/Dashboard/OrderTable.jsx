@@ -1,45 +1,65 @@
 import React from "react";
 
-const OrderTable = ({orders}) => {
-    
+const OrderTable = ({ orders }) => {
+    // console.log("order table page", orders);
 
     return (
         <>
             <table className="w-full text-left">
-                <thead>
-                    <tr className="border-b border-gray-100 text-[10px] text-gray-400">
-                        <th className="pb-3 font-medium">Order ID</th>
-                        <th className="pb-3 font-medium">User</th>
-                        <th className="pb-3 font-medium">Pages</th>
-                        <th className="pb-3 font-medium">Amount</th>
-                        <th className="pb-3 font-medium">Status</th>
-                    </tr>
-                </thead>
+                {orders.length == 0 ? (
+                    <div className="p-10 text-center">You don't have any data</div>
+                ) : (
+                    <>
+                        {orders?.map((order) => (
+                            <>
+                                <thead>
+                                    <tr className="border-b border-gray-100 text-[10px] text-gray-400">
+                                        <th className="pb-3 font-medium">
+                                            Order ID
+                                        </th>
+                                        <th className="pb-3 font-medium">
+                                            User
+                                        </th>
+                                        <th className="pb-3 font-medium">
+                                            Pages
+                                        </th>
+                                        <th className="pb-3 font-medium">
+                                            Amount
+                                        </th>
+                                        <th className="pb-3 font-medium">
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
 
-                <tbody>
-                    {orders.map((order) => (
-                        <tr
-                            key={order.id}
-                            className="border-b border-gray-50 last:border-none"
-                        >
-                            <td className="py-3 text-xs font-medium">
-                                {order.id}
-                            </td>
-                            <td className="py-3 text-xs text-gray-500">
-                                {order.user}
-                            </td>
-                            <td className="py-3 text-xs text-gray-500">
-                                {order.pages}
-                            </td>
-                            <td className="py-3 text-xs font-medium">
-                                {order.amount}
-                            </td>
-                            <td className="py-3">
-                                <StatusBadge status={order.status} />
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
+                                <tbody>
+                                    <tr
+                                        key={order.id}
+                                        className="border-b border-gray-50 last:border-none"
+                                    >
+                                        <td className="py-3 text-xs font-medium">
+                                            {order.id}
+                                        </td>
+                                        <td className="py-3 text-xs text-gray-500">
+                                            {order.user}
+                                        </td>
+                                        <td className="py-3 text-xs text-gray-500">
+                                            {order.pages}
+                                        </td>
+                                        <td className="py-3 text-xs font-medium">
+                                            {order.amount}
+                                        </td>
+                                        <td className="py-3">
+                                            <StatusBadge
+                                                status={order.status}
+                                            />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </>
+                        ))}
+                    </>
+                )}
             </table>
         </>
     );

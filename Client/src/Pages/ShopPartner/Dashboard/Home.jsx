@@ -1,45 +1,44 @@
 import React from "react";
 import StatCard from "../../../Components/ShopPartner/StatCard";
 import OrderTable from "./OrderTable";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Home = () => {
-    const orders = [
-        {
-            id: "#1024",
-            user: "Guest",
-            pages: 36,
-            amount: "₹16.40",
-            status: "Pending",
+    
+    const {
+        data = [],
+        isLoading,
+        isError,
+    } = useQuery({
+        queryKey: ["allOrders"],
+        queryFn: async () => {
+            const token = localStorage.getItem("token");
+            const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/order`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+
+            // console.log(response.data.orders);
+            return response.data.orders;
         },
-        {
-            id: "#1023",
-            user: "Guest",
-            pages: 50,
-            amount: "₹24.00",
-            status: "Ready",
-        },
-        {
-            id: "#1022",
-            user: "Guest",
-            pages: 12,
-            amount: "₹6.00",
-            status: "Printing",
-        },
-        {
-            id: "#1021",
-            user: "Guest",
-            pages: 28,
-            amount: "₹13.20",
-            status: "Completed",
-        },
-        {
-            id: "#1020",
-            user: "Guest",
-            pages: 45,
-            amount: "₹21.60",
-            status: "Pending",
-        },
-    ];
+    });
+
+    if (isLoading) {
+        return <div className="p-10 text-center">Loading orders...</div>;
+    }
+
+    if (isError) {
+        return (
+            <div className="p-10 text-center text-red-500">
+                Failed to load orders.
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] text-[#171717]">
@@ -77,7 +76,7 @@ const Home = () => {
                         </div>
 
                         <div className="overflow-hidden">
-                            <OrderTable orders={orders}/>
+                            <OrderTable orders={data} />
                         </div>
                     </div>
 
