@@ -56,12 +56,11 @@ const TrackOrder = () => {
         },
     ];
 
-    const navigate=useNavigate()
+    const navigate = useNavigate();
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] px-6 py-10 text-[#171717]">
             <div className="mx-auto max-w-3xl">
-                {/* HEADER */}
                 <div className="flex items-center justify-between">
                     <div>
                         <p className="text-xs font-medium text-orange-500">
@@ -84,7 +83,6 @@ const TrackOrder = () => {
                     </div>
                 </div>
 
-                {/* CURRENT STATUS */}
                 <div className="mt-7 rounded-xl border border-orange-200 bg-orange-50 p-5">
                     <div className="flex items-center justify-between">
                         <div>
@@ -108,7 +106,6 @@ const TrackOrder = () => {
                     </div>
                 </div>
 
-                {/* ORDER DETAILS */}
                 <div className="mt-5 rounded-xl border border-gray-200 bg-white p-5">
                     <h2 className="text-sm font-semibold">Order Details</h2>
 
@@ -158,7 +155,6 @@ const TrackOrder = () => {
                     </div>
                 </div>
 
-                {/* PROGRESS */}
                 <div className="mt-5 rounded-xl border border-gray-200 bg-white p-6">
                     <h2 className="text-sm font-semibold">Order Progress</h2>
 
@@ -172,7 +168,6 @@ const TrackOrder = () => {
                                     key={step.title}
                                     className="relative flex gap-4"
                                 >
-                                    {/* LINE */}
                                     {!isLast && (
                                         <div
                                             className={`absolute left-[15px] top-8 h-12 w-[2px] ${
@@ -183,7 +178,6 @@ const TrackOrder = () => {
                                         />
                                     )}
 
-                                    {/* ICON */}
                                     <div
                                         className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
                                             step.completed
@@ -198,7 +192,6 @@ const TrackOrder = () => {
                                         <Icon size={17} />
                                     </div>
 
-                                    {/* TEXT */}
                                     <div className="pb-8 ">
                                         <p
                                             className={`text-xs font-semibold ${
@@ -222,7 +215,6 @@ const TrackOrder = () => {
                     </div>
                 </div>
 
-                {/* COLLECTION OTP */}
                 <div className="mt-5 rounded-xl border border-orange-200 bg-orange-50 p-6">
                     <div className="text-center">
                         <p className="text-[10px] font-semibold uppercase tracking-wide text-orange-500">
@@ -246,11 +238,10 @@ const TrackOrder = () => {
                     </div>
                 </div>
 
-                {/* BACK */}
                 <button
-
-                        onClick={()=>navigate('/success')}
-                 className="mt-6 flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
+                    onClick={() => navigate("/success")}
+                    className="mt-6 flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-xs font-medium text-gray-600 hover:bg-gray-50"
+                >
                     <MdArrowBack size={16} />
                     Back
                 </button>

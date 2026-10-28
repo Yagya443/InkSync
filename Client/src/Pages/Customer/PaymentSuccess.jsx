@@ -28,7 +28,6 @@ const PaymentSuccess = () => {
     return (
         <div className="min-h-screen bg-[#f8f8f7] px-6 py-10 text-[#171717]">
             <div className="mx-auto max-w-2xl">
-                {/* SUCCESS */}
                 <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center">
                     <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-50">
                         <MdCheckCircle size={38} className="text-green-500" />
@@ -42,7 +41,6 @@ const PaymentSuccess = () => {
                         Your printing order has been successfully placed.
                     </p>
 
-                    {/* ORDER ID */}
                     <div className="mx-auto mt-6 w-fit rounded-lg bg-gray-50 px-5 py-3">
                         <p className="text-[10px] uppercase tracking-wide text-gray-400">
                             Order ID
@@ -54,7 +52,6 @@ const PaymentSuccess = () => {
                     </div>
                 </div>
 
-                {/* ORDER DETAILS */}
                 <div className="mt-5 rounded-xl border border-gray-200 bg-white p-5">
                     <div className="flex items-center gap-2">
                         <MdReceiptLong size={19} className="text-orange-500" />
@@ -118,7 +115,6 @@ const PaymentSuccess = () => {
                     </div>
                 </div>
 
-                {/* COLLECTION OTP */}
                 <div className="mt-5 rounded-xl border border-orange-200 bg-orange-50 p-6">
                     <div className="text-center">
                         <p className="text-xs font-semibold text-orange-600">
@@ -156,7 +152,6 @@ const PaymentSuccess = () => {
                     </div>
                 </div>
 
-                {/* TRACK ORDER */}
                 <button onClick={()=>navigate('/trackOrder')} className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-orange-500 py-3 text-xs font-semibold text-white transition hover:bg-orange-600">
                     Track My Order
                     <MdArrowForward size={16} />

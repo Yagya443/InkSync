@@ -11,10 +11,8 @@ import {
 import { FaRupeeSign } from "react-icons/fa";
 import AddOptionModel from "../../../Components/ShopPartner/AddOptionModel";
 
-
 const Setting = () => {
-
-    const [toggleModel,setToggleModel]=useState(false)
+    const [toggleModel, setToggleModel] = useState(false);
 
     return (
         <div className="min-h-screen bg-[#f8f8f7] p-7 text-[#171717]">
@@ -88,7 +86,10 @@ const Setting = () => {
                     </div>
 
                     <div className="flex justify-end border-t border-gray-100 p-5 gap-4">
-                        <button onClick={()=>setToggleModel(true)} className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600">
+                        <button
+                            onClick={() => setToggleModel(true)}
+                            className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600"
+                        >
                             <MdAdd size={16} />
                             Add Options
                         </button>
@@ -182,7 +183,6 @@ const Setting = () => {
                 </div>
 
                 <div className="rounded-xl border border-gray-200 bg-white">
-                    {/* HEADER */}
                     <div className="flex items-center gap-3 border-b border-gray-100 p-5">
                         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-orange-50 text-orange-500">
                             <FaRupeeSign size={20} />
@@ -198,7 +198,6 @@ const Setting = () => {
                     </div>
 
                     <div className="divide-y divide-gray-100">
-                        {/* RAZORPAY ACCOUNT */}
                         <div className="flex items-center justify-between p-5">
                             <div>
                                 <p className="text-xs font-medium">
@@ -222,7 +221,6 @@ const Setting = () => {
                             </div>
                         </div>
 
-                        {/* ACCOUNT HOLDER */}
                         <div className="flex items-center justify-between p-5">
                             <div>
                                 <p className="text-xs font-medium">
@@ -239,7 +237,6 @@ const Setting = () => {
                             </p>
                         </div>
 
-                        {/* BANK ACCOUNT */}
                         <div className="flex items-center justify-between p-5">
                             <div>
                                 <p className="text-xs font-medium">
@@ -256,7 +253,6 @@ const Setting = () => {
                             </p>
                         </div>
 
-                        {/* IFSC */}
                         <div className="flex items-center justify-between p-5">
                             <div>
                                 <p className="text-xs font-medium">IFSC Code</p>
@@ -271,7 +267,6 @@ const Setting = () => {
                             </p>
                         </div>
 
-                        {/* TOTAL EARNINGS */}
                         <div className="flex items-center justify-between p-5">
                             <div>
                                 <p className="text-xs font-medium">
@@ -288,7 +283,6 @@ const Setting = () => {
                             </p>
                         </div>
 
-                        {/* PAYOUTS */}
                         <div className="flex items-center justify-between p-5">
                             <div>
                                 <p className="text-xs font-medium">Payouts</p>
@@ -331,10 +325,7 @@ const Setting = () => {
                 </div>
             </div>
 
-            {
-                toggleModel && <AddOptionModel setToggleModel={setToggleModel}/>
-            }
-
+            {toggleModel && <AddOptionModel setToggleModel={setToggleModel} />}
         </div>
     );
 };
